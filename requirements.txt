@@ -1,0 +1,2 @@
+# Bluetooth Low Energy for Windows, macOS and Linux
+bleak>=0.22,<4

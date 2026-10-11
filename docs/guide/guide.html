@@ -1,0 +1,613 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Light Bridge – Guide</title>
+<style>
+@page { size: A4; margin: 16mm 17mm 18mm; }
+:root { --ink: #10171a; --muted: #56636b; --line: #dfe5e8; --soft: #f2f6f7; --accent: #087f7a; --accent-soft: #e3f3f2;
+  --warn: #9a5b06; --warn-soft: #fdf3e2; --r: #d9363e; --g: #23905a; --b: #3456d1; --w: #6f7479; }
+* { box-sizing: border-box; }
+html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+body { margin: 0; font-family: Inter, "Segoe UI", sans-serif; color: var(--ink); font-size: 10.6pt; line-height: 1.5; }
+h1 { font-family: "Inter Display", Inter, sans-serif; font-size: 25pt; line-height: 1.12; margin: 0 0 6mm; letter-spacing: -.02em; }
+h2 { font-family: "Inter Display", Inter, sans-serif; font-size: 13.5pt; margin: 7mm 0 2.5mm; letter-spacing: -.01em; }
+h3 { font-size: 11pt; margin: 4mm 0 1.5mm; }
+p { margin: 0 0 2.6mm; }
+.eyebrow { font-size: 8.5pt; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--accent); margin-bottom: 3mm; }
+.lead { font-size: 12.5pt; line-height: 1.45; color: #2a3439; max-width: 150mm; }
+.muted { color: var(--muted); }
+.small { font-size: 9pt; }
+.page { break-before: page; }
+.keep { break-inside: avoid; }
+b, strong { font-weight: 650; }
+.mono { font-family: "DejaVu Sans Mono", monospace; font-size: 9.2pt; background: var(--soft); padding: .3mm 1.2mm; border-radius: 1.2mm; }
+.ui { font-weight: 650; color: var(--accent); }
+
+/* cover */
+.cover { height: 258mm; display: flex; flex-direction: column; }
+.cover h1 { font-size: 40pt; margin: 0 0 3mm; }
+.cover .sub { font-size: 17pt; font-weight: 600; color: #2a3439; margin-bottom: 6mm; letter-spacing: -.01em; }
+.hero { position: relative; margin: 9mm 0 0; height: 112mm; }
+.hero .laptop { position: absolute; left: 0; top: 0; width: 138mm; border-radius: 3mm; border: 2.2mm solid #1d2427; border-bottom-width: 4mm; box-shadow: 0 4mm 10mm rgba(0,0,0,.12); overflow: hidden; }
+.hero .laptop img { display: block; width: 100%; }
+.hero .phone { position: absolute; right: 2mm; top: 14mm; width: 46mm; }
+.cover .who { margin-top: auto; display: grid; grid-template-columns: 1fr 1fr; gap: 6mm; border-top: 1px solid var(--line); padding-top: 6mm; }
+.cover .who h3 { margin-top: 0; }
+.toc { list-style: none; padding: 0; margin: 0; columns: 1; }
+.toc li { display: flex; gap: 2mm; padding: .6mm 0; border-bottom: 1px dotted var(--line); font-size: 9.6pt; }
+.toc li span:first-child { flex: 1; }
+
+/* phone frame */
+.phone { border: 1.6mm solid #1d2427; border-radius: 6mm; overflow: hidden; background: #1d2427; box-shadow: 0 3mm 8mm rgba(0,0,0,.14); }
+.phone img { display: block; width: 100%; border-radius: 4.4mm; }
+.phone.crop { height: 80mm; }
+.phone.crop img { height: 100%; object-fit: cover; object-position: top; }
+.phone.crop.bottom img { object-position: bottom; }
+.shot-pc { border: 1px solid var(--line); border-radius: 3mm; overflow: hidden; box-shadow: 0 2mm 6mm rgba(0,0,0,.08); }
+.shot-pc img { display: block; width: 100%; }
+figure { margin: 0; }
+figcaption { font-size: 8.6pt; color: var(--muted); margin-top: 2mm; text-align: center; }
+
+/* layout */
+.cols { display: grid; grid-template-columns: 1fr 58mm; gap: 8mm; align-items: start; }
+.cols.left { grid-template-columns: 58mm 1fr; }
+.cols.half { grid-template-columns: 1fr 1fr; }
+.cols.three { grid-template-columns: 1fr 1fr 1fr; gap: 5mm; }
+
+/* steps */
+.steps { list-style: none; padding: 0; margin: 2mm 0 0; counter-reset: s; }
+.steps > li { position: relative; padding: 0 0 3.4mm 11mm; counter-increment: s; break-inside: avoid; }
+.steps > li::before { content: counter(s); position: absolute; left: 0; top: -.2mm; width: 7mm; height: 7mm; border-radius: 50%;
+  background: var(--accent); color: #fff; font-weight: 700; font-size: 9.5pt; display: flex; align-items: center; justify-content: center; }
+.steps > li b.t { display: block; font-size: 10.8pt; margin-bottom: .6mm; }
+.steps.zero > li::before { content: counter(s, decimal); }
+
+/* boxes */
+.box { border-radius: 3mm; padding: 3.6mm 4.4mm; margin: 3mm 0; background: var(--soft); border: 1px solid var(--line); break-inside: avoid; }
+.box.tip { background: var(--accent-soft); border-color: #bfe3e0; }
+.box.warn { background: var(--warn-soft); border-color: #f0d6a8; }
+.box h3 { margin: 0 0 1.2mm; font-size: 10.4pt; }
+.box p:last-child, .box ul:last-child { margin-bottom: 0; }
+.box ul { margin: 1mm 0 0; padding-left: 5mm; }
+.tag { display: inline-block; font-size: 7.6pt; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; padding: .4mm 1.8mm; border-radius: 1.2mm; background: var(--accent-soft); color: var(--accent); vertical-align: 1px; }
+.tag.once { background: #eceff1; color: #455058; }
+
+/* tables */
+table { width: 100%; border-collapse: collapse; margin: 2mm 0 3mm; font-size: 9.8pt; break-inside: avoid; }
+th { text-align: left; font-size: 8.4pt; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); font-weight: 700; padding: 2mm 2.4mm; border-bottom: 1.4px solid var(--ink); }
+td { padding: 2.3mm 2.4mm; border-bottom: 1px solid var(--line); vertical-align: top; }
+td:first-child { font-weight: 600; width: 34%; }
+table.ba td:first-child { font-weight: 400; color: var(--muted); width: 46%; }
+table.ba td:last-child { font-weight: 500; }
+.arrow { color: var(--accent); font-weight: 800; }
+
+/* callout badges on screenshots */
+.annot { position: relative; }
+.badge { position: absolute; width: 6.4mm; height: 6.4mm; border-radius: 50%; background: #e2513a; color: #fff; font-weight: 800; font-size: 9pt;
+  display: flex; align-items: center; justify-content: center; border: .6mm solid #fff; box-shadow: 0 .6mm 1.6mm rgba(0,0,0,.25); }
+.legend-list { list-style: none; padding: 0; margin: 0; }
+.legend-list li { display: grid; grid-template-columns: 8mm 1fr; gap: 2mm; margin-bottom: 2.6mm; break-inside: avoid; }
+.legend-list .n { width: 6.4mm; height: 6.4mm; border-radius: 50%; background: #e2513a; color: #fff; font-weight: 800; font-size: 9pt; display: flex; align-items: center; justify-content: center; }
+
+.diagram { border: 1px solid var(--line); border-radius: 3mm; padding: 3mm; margin: 2mm 0 4mm; background: #fbfcfc; }
+.diagram svg { display: block; width: 100%; height: auto; }
+.rule { display: grid; grid-template-columns: 9mm 1fr; gap: 2mm; margin: 0 0 3mm; break-inside: avoid; }
+.rule .ic { width: 9mm; height: 9mm; border-radius: 2.4mm; background: var(--accent-soft); color: var(--accent); display: flex; align-items: center; justify-content: center; font-weight: 800; }
+dl.gloss { display: grid; grid-template-columns: 38mm 1fr; gap: 1.8mm 5mm; margin: 2mm 0; }
+dl.gloss dt { font-weight: 650; } dl.gloss dd { margin: 0; }
+.faq h3 { margin-top: 3.4mm; }
+
+.shot-card { border: 1px solid var(--line); border-radius: 3mm; overflow: hidden; box-shadow: 0 1.5mm 4mm rgba(0,0,0,.07); background: #fff; }
+.shot-card img { display: block; width: 100%; }
+table.status-table { font-size: 9pt; margin-top: 4mm; }
+table.status-table td:first-child { width: 47%; font-weight: 600; }
+.dot { display: inline-block; width: 2.4mm; height: 2.4mm; border-radius: 50%; margin-right: 1.6mm; vertical-align: 0; }
+.dot.ok { background: #1d8a3c; } .dot.away { background: #8a969d; } .dot.warn { background: #d08a1c; }
+.tag.warn { background: #fdf3e2; color: var(--warn); }
+table.check { font-size: 9pt; }
+table.check td:first-child { width: 6mm; font-weight: 700; color: var(--accent); }
+table.check td:nth-child(2) { width: 46%; font-weight: 500; }
+table.check td:last-child { width: 12mm; border-left: 1px solid var(--line); }
+table.check td { padding: 1.9mm 2.2mm; }
+ul.tight, ol.tight { margin: 1mm 0 2mm; padding-left: 5mm; }
+ul.tight li, ol.tight li { margin-bottom: 1.4mm; }
+</style>
+
+</head>
+<body>
+
+<!-- ============================== COVER ============================== -->
+<section class="cover">
+  <div class="eyebrow">Guide · Version 0.11 · October 2026</div>
+  <h1>Light Bridge</h1>
+  <div class="sub">Your Chihiros lights, made simple</div>
+  <p class="lead">Set the day light of your <b>Chihiros Universal WRGB</b> lights phase by phase, on the PC and on your iPhone. The program is stored in each light, so the lights keep running when the laptop goes to work.</p>
+  <div class="hero">
+    <div class="laptop"><img src="img/pc-home.png" alt="Light Bridge on the PC"></div>
+    <div class="phone"><img src="img/phone-home.png" alt="Light Bridge on the iPhone"></div>
+  </div>
+  <div class="who">
+    <div>
+      <h3>Who this guide is for</h3>
+      <p class="small">Anyone who looks after the tanks. You need no technical knowledge. Steps marked <span class="tag once">one time</span> are done once and never again.</p>
+      <p class="small muted">The pictures show the demo mode with simulated lights. Your screen looks the same, with your own lights and rooms.</p>
+    </div>
+    <ul class="toc">
+      <li><span>What changes for you</span><span>2</span></li>
+      <li><span>How it works</span><span>3</span></li>
+      <li><span>Setting up the PC</span><span>4</span></li>
+      <li><span>Adding your lights</span><span>5</span></li>
+      <li><span>Using it on the iPhone</span><span>6</span></li>
+      <li><span>Everyday use</span><span>7</span></li>
+      <li><span>The day program</span><span>9</span></li>
+      <li><span>Full curves test</span><span>11</span></li>
+      <li><span>What happens if …</span><span>12</span></li>
+      <li><span>Troubleshooting</span><span>13</span></li>
+      <li><span>First test with your lights</span><span>14</span></li>
+      <li><span>Review notes · Disclaimer</span><span>15</span></li>
+      <li><span>Words · HeliaLux (beta)</span><span>16</span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============================== WHAT CHANGES ============================== -->
+<section class="page">
+  <div class="eyebrow">Overview</div>
+  <h1>What changes for you</h1>
+  <p class="lead">Light Bridge is a small program for your laptop. It gives you one clear page for both Chihiros lights and stores your day programs in the lights themselves.</p>
+  <table class="ba">
+    <thead><tr><th>Before (My Chihiros app)</th><th>With Light Bridge</th></tr></thead>
+    <tbody>
+      <tr><td>The colour steps over the day can only be set all at once.</td><td><span class="arrow">→</span> Every phase of the day is changed on its own. The tank shows the result right away.</td></tr>
+      <tr><td>The app often loses the connection.</td><td><span class="arrow">→</span> The lights run their program on their own. The laptop is only needed for changes.</td></tr>
+      <tr><td>Two lights in two rooms, set up one by one.</td><td><span class="arrow">→</span> One page for both, sorted by room. Each light keeps its own program.</td></tr>
+      <tr><td>After a power cut, the light can have the wrong time.</td><td><span class="arrow">→</span> Light Bridge sets the clock of each light whenever the laptop is near it.</td></tr>
+      <tr><td>Manual colours stay on until someone switches back.</td><td><span class="arrow">→</span> Manual light ends on its own after the time you choose.</td></tr>
+      <tr><td>Account, cloud, app updates.</td><td><span class="arrow">→</span> No account, no cloud. Everything stays in your home.</td></tr>
+    </tbody>
+  </table>
+  <h2>Easy to use</h2>
+  <p>The menu follows the Juwel HeliaLux, which many people find clear and simple:</p>
+  <div class="cols three">
+    <div class="box"><h3>Phases</h3><p class="small">A day is a list of phases. Each phase says: “at this time, reach these colours”. In between, the light fades.</p></div>
+    <div class="box"><h3>Live preview</h3><p class="small">While you change a phase, the tank shows it immediately. A slider lets you look at any time of day.</p></div>
+    <div class="box"><h3>Templates</h3><p class="small">Ready-made day programs, for example with a midday break or a warm sunset. Pick one and adjust it.</p></div>
+  </div>
+</section>
+
+<!-- ============================== HOW IT WORKS ============================== -->
+<section class="page">
+  <div class="eyebrow">The idea</div>
+  <h1>How it works</h1>
+  <p class="lead">The day program lives <b>in the light</b>. The laptop is like a remote control: you only need it nearby to change something.</p>
+  <div class="diagram">
+    <svg viewBox="0 0 760 330" xmlns="http://www.w3.org/2000/svg" font-family="Inter, sans-serif">
+      <!-- room 1 -->
+      <rect x="14" y="10" width="350" height="190" rx="14" fill="#fff" stroke="#cfd8dc"/>
+      <text x="32" y="38" font-size="15" font-weight="700" fill="#10171a">Room 1</text>
+      <text x="92" y="38" font-size="13" fill="#56636b">for example the living room</text>
+      <rect x="44" y="70" width="140" height="10" rx="5" fill="#2cc4bc"/>
+      <path d="M60 82 L46 112 M114 82 L114 112 M168 82 L182 112" stroke="#2cc4bc" stroke-width="3" opacity=".45"/>
+      <rect x="40" y="112" width="148" height="66" rx="6" fill="#e3f3f2" stroke="#9fd3cf"/>
+      <path d="M40 130 q18 -8 37 0 t37 0 t37 0 t37 0" fill="none" stroke="#9fd3cf" stroke-width="2"/>
+      <rect x="208" y="58" width="140" height="44" rx="8" fill="#e3f3f2" stroke="#087f7a"/>
+      <text x="278" y="76" text-anchor="middle" font-size="12" font-weight="700" fill="#087f7a">program + clock</text>
+      <text x="278" y="93" text-anchor="middle" font-size="12" fill="#087f7a">stored in the light</text>
+      <path d="M208 78 L186 76" stroke="#087f7a" stroke-width="2"/>
+      <text x="114" y="194" text-anchor="middle" font-size="13" font-weight="700" fill="#10171a">Chihiros 1</text>
+      <!-- room 2 -->
+      <rect x="396" y="10" width="350" height="190" rx="14" fill="#fff" stroke="#cfd8dc"/>
+      <text x="414" y="38" font-size="15" font-weight="700" fill="#10171a">Room 2</text>
+      <text x="474" y="38" font-size="13" fill="#56636b">for example the bedroom</text>
+      <rect x="426" y="70" width="140" height="10" rx="5" fill="#2cc4bc"/>
+      <path d="M442 82 L428 112 M496 82 L496 112 M550 82 L564 112" stroke="#2cc4bc" stroke-width="3" opacity=".45"/>
+      <rect x="422" y="112" width="148" height="66" rx="6" fill="#e3f3f2" stroke="#9fd3cf"/>
+      <path d="M422 130 q18 -8 37 0 t37 0 t37 0 t37 0" fill="none" stroke="#9fd3cf" stroke-width="2"/>
+      <rect x="590" y="58" width="140" height="44" rx="8" fill="#e3f3f2" stroke="#087f7a"/>
+      <text x="660" y="76" text-anchor="middle" font-size="12" font-weight="700" fill="#087f7a">program + clock</text>
+      <text x="660" y="93" text-anchor="middle" font-size="12" fill="#087f7a">stored in the light</text>
+      <path d="M590 78 L568 76" stroke="#087f7a" stroke-width="2"/>
+      <text x="496" y="194" text-anchor="middle" font-size="13" font-weight="700" fill="#10171a">Chihiros 2</text>
+      <!-- laptop -->
+      <rect x="332" y="236" width="96" height="58" rx="6" fill="#1d2427"/>
+      <rect x="339" y="243" width="82" height="44" rx="3" fill="#e8f1f2"/>
+      <rect x="318" y="294" width="124" height="7" rx="3" fill="#1d2427"/>
+      <text x="380" y="322" text-anchor="middle" font-size="13" font-weight="700" fill="#10171a">Laptop with Light Bridge</text>
+      <!-- bluetooth -->
+      <path d="M338 238 C 300 200, 250 160, 192 148" fill="none" stroke="#087f7a" stroke-width="2.5" stroke-dasharray="6 5"/>
+      <path d="M422 238 C 530 238, 610 200, 576 150" fill="none" stroke="#087f7a" stroke-width="2.5" stroke-dasharray="6 5"/>
+      <text x="236" y="222" text-anchor="middle" font-size="11.5" font-weight="700" fill="#087f7a">Bluetooth, a few metres</text>
+      <text x="236" y="237" text-anchor="middle" font-size="11" fill="#087f7a">only needed for changes</text>
+      <!-- office -->
+      <rect x="20" y="262" width="150" height="56" rx="10" fill="#f2f6f7" stroke="#cfd8dc" stroke-dasharray="4 4"/>
+      <text x="95" y="285" text-anchor="middle" font-size="12" font-weight="700" fill="#455058">At work during the day</text>
+      <text x="95" y="302" text-anchor="middle" font-size="11" fill="#56636b">the lights keep running</text>
+      <path d="M176 290 L312 270" stroke="#9aa6ad" stroke-width="2" marker-end="url(#ar)" marker-start="url(#ar)"/>
+      <defs><marker id="ar" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#9aa6ad"/></marker></defs>
+      <!-- iphone -->
+      <rect x="664" y="226" width="36" height="66" rx="8" fill="#1d2427"/>
+      <rect x="668" y="234" width="28" height="50" rx="3" fill="#e8f1f2"/>
+      <text x="682" y="312" text-anchor="middle" font-size="12" font-weight="700" fill="#10171a">iPhone</text>
+      <path d="M660 262 L446 262" stroke="#9aa6ad" stroke-width="2.5" stroke-dasharray="2 6" stroke-linecap="round"/>
+      <text x="552" y="254" text-anchor="middle" font-size="11" fill="#56636b">home Wi-Fi</text>
+    </svg>
+  </div>
+  <h2>Three simple rules</h2>
+  <div class="rule"><div class="ic">1</div><div><b>Each light runs on its own.</b> It keeps its day program and its clock. It needs neither the laptop nor the Wi-Fi to run.</div></div>
+  <div class="rule"><div class="ic">2</div><div><b>The laptop is only needed for changes.</b> To store a change, set the clock or switch on manual light, the laptop must be within a few metres of that light. Take it to work as usual.</div></div>
+  <div class="rule"><div class="ic">3</div><div><b>The iPhone works at home.</b> It talks to the laptop through your home Wi-Fi. The laptop must be at home, switched on and running Light Bridge.</div></div>
+  <div class="box tip"><h3>When the laptop leaves</h3>
+    <p class="small">The lights simply keep running their stored programs. Only a <b>manual light</b> that is on at that moment stays on until the laptop is back. Light Bridge shows this clearly (see page 7). Tip: tap <span class="ui">Back to day program</span> before you leave.</p></div>
+</section>
+
+<!-- ============================== PC SETUP ============================== -->
+<section class="page">
+  <div class="eyebrow">Setup <span class="tag once" style="margin-left:2mm">one time</span></div>
+  <h1>Setting up the PC</h1>
+  <table>
+    <tbody>
+      <tr><td>A Windows laptop</td><td>With Bluetooth. Almost every laptop has it. It is used as a normal laptop; it may go to work, sleep or be switched off.</td></tr>
+      <tr><td>Your two Chihiros lights</td><td>Switched on, as usual.</td></tr>
+      <tr><td>The Light Bridge folder</td><td>The file <span class="mono">light-bridge.zip</span> you received with this guide.</td></tr>
+      <tr><td>About 20 minutes</td><td>Only once.</td></tr>
+    </tbody>
+  </table>
+  <ol class="steps">
+    <li><b class="t">Unpack the folder</b>Right-click <span class="mono">light-bridge.zip</span> → <span class="ui">Extract All…</span> and choose your <b>Documents</b> folder. You now have a folder called <b>light-bridge</b>.</li>
+    <li><b class="t">Install Python (free)</b>Light Bridge needs a free helper program called Python. Go to <span class="mono">python.org/downloads</span> and click the big yellow <span class="ui">Download Python</span> button. Open the downloaded file. <b>Important:</b> at the bottom of the first window, tick <span class="ui">Add python.exe to PATH</span>, then click <span class="ui">Install Now</span>.</li>
+    <li><b class="t">Start Light Bridge</b>Open the <b>light-bridge</b> folder and double-click <span class="mono">Start-Light-Bridge</span>. If Windows says “Windows protected your PC”, click <span class="ui">More info</span> → <span class="ui">Run anyway</span>. The first start takes about one minute.</li>
+    <li><b class="t">Allow network access</b>Windows asks whether Python may use the network. Tick <span class="ui">Private networks</span> only and click <span class="ui">Allow</span>. This lets your iPhone reach the laptop at home.</li>
+    <li><b class="t">The page opens</b>Your browser opens Light Bridge. Continue with “Adding your lights” on the next page.</li>
+  </ol>
+  <div class="cols half">
+    <div class="box tip"><h3>Recommended: start with Windows</h3><p class="small">Double-click <span class="mono">Start-With-Windows</span> once. Light Bridge then starts by itself, minimised, when you sign in, and is ready whenever the laptop is at home. To undo: <span class="mono">Stop-Starting-With-Windows</span>.</p></div>
+    <div class="box"><h3>The black window</h3><p class="small">Light Bridge runs in a black window. You can minimise it. If you close it, Light Bridge stops; the lights keep running their stored programs.</p></div>
+  </div>
+  <p class="small muted">Sleep is fine. You do not need to keep the laptop awake: the lights do not need it.</p>
+</section>
+
+<!-- ============================== ADDING LIGHTS ============================== -->
+<section class="page">
+  <div class="eyebrow">Setup <span class="tag once" style="margin-left:2mm">one time per light</span></div>
+  <h1>Adding your lights</h1>
+  <p class="lead">Light Bridge finds Chihiros lights nearby by itself. To be safe, it changes nothing in a light until you confirm that it is yours.</p>
+  <div class="cols three" style="grid-template-columns: 1fr 1fr 1.1fr">
+    <figure><div class="phone crop"><img src="img/phone-new.png" alt="New light found"></div><figcaption>A new light nearby</figcaption></figure>
+    <figure><div class="phone crop bottom"><img src="img/phone-adopt.png" alt="Add this light"></div><figcaption>Name and room</figcaption></figure>
+    <div>
+      <ol class="steps small">
+        <li><b class="t">Go to the first light</b>Take the laptop into the room, within a few metres of the light.</li>
+        <li><b class="t">Wait for the card</b>Within a minute, “New light found nearby” appears.</li>
+        <li><b class="t">Tap Flash</b>The light blinks blue three times. Is it the one in front of you?</li>
+        <li><b class="t">Tap This is mine</b>Enter a name and the room, then <span class="ui">Add light</span>.</li>
+        <li><b class="t">Second light</b>Walk to the other room and do the same.</li>
+      </ol>
+    </div>
+  </div>
+  <div class="box warn"><h3>Good to know</h3><p class="small">When you add a light, Light Bridge stores its own day program in it (it starts with the template “Community tank”). The program you had set in the My Chihiros app is replaced. You can change the new one at any time.</p></div>
+  <div class="cols half">
+    <div class="box"><h3>Not your light?</h3><p class="small">Tap <span class="ui">Not mine</span>, for example for a neighbour's Chihiros. Light Bridge then leaves that light alone and does not show it again.</p></div>
+    <div class="box"><h3>Close the old app</h3><p class="small">A Chihiros talks to only one device at a time. Close the My Chihiros app on every phone in the household, otherwise it may block Light Bridge.</p></div>
+  </div>
+</section>
+
+<!-- ============================== IPHONE ============================== -->
+<section class="page">
+  <div class="eyebrow">Setup <span class="tag once" style="margin-left:2mm">one time</span></div>
+  <h1>Using it on the iPhone</h1>
+  <p class="lead">No App Store download is needed. The iPhone opens the page that the laptop offers in your home Wi-Fi.</p>
+  <figure class="shot-pc"><img src="img/pc-qr.png" alt="Code for the iPhone on the PC"></figure>
+  <figcaption>At the bottom of the overview on the laptop: the code for your iPhone.</figcaption>
+  <div class="cols" style="margin-top:5mm; grid-template-columns: 1fr 50mm">
+    <div>
+      <ol class="steps">
+        <li><b class="t">Same Wi-Fi</b>The iPhone must be in your home Wi-Fi (not on mobile data only), and the laptop at home with Light Bridge running.</li>
+        <li><b class="t">Scan the code</b>Open the iPhone camera and point it at the code on the laptop screen. Tap the link that appears. Safari opens Light Bridge.</li>
+        <li><b class="t">Add it to the Home Screen</b>In Safari, tap <span class="ui">Share</span> → <span class="ui">Add to Home Screen</span> → <span class="ui">Add</span>. You now have an icon called <b>Lights</b>, like an app.</li>
+      </ol>
+      <div class="box"><h3>Why a code?</h3><p class="small">The code contains a secret key. Only devices that scanned it can use Light Bridge. Other people in the same network, for example when the laptop is at work, cannot. If a phone shows “Connect this device once”, simply scan the code again.</p></div>
+    </div>
+    <figure><div class="phone crop"><img src="img/phone-unpaired.png" alt="Connect this device once"></div><figcaption>Without the code</figcaption></figure>
+  </div>
+</section>
+
+<!-- ============================== EVERYDAY: OVERVIEW ============================== -->
+<section class="page">
+  <div class="eyebrow">Everyday use</div>
+  <h1>The overview</h1>
+  <p class="lead">The first page shows all lights, sorted by room. One look tells you what each light is doing.</p>
+  <div class="cols left">
+    <figure class="annot">
+      <div class="phone"><img src="img/phone-home.png" alt="Overview"></div>
+      <span class="badge" style="left:1%;top:30.2%">1</span>
+      <span class="badge" style="left:63%;top:31.8%">2</span>
+      <span class="badge" style="left:89%;top:37.6%">3</span>
+      <span class="badge" style="left:89%;top:43.2%">4</span>
+      <span class="badge" style="left:1%;top:48.4%">5</span>
+      <span class="badge" style="left:89%;top:48.4%">6</span>
+    </figure>
+    <div>
+      <ul class="legend-list">
+        <li><span class="n">1</span><div><b>Colour dot.</b> What the light shows right now.</div></li>
+        <li><span class="n">2</span><div><b>Connection.</b> See the table below.</div></li>
+        <li><span class="n">3</span><div><b>What is running.</b> The day program and the next change, or for example “Manual light until 14:30”.</div></li>
+        <li><span class="n">4</span><div><b>Today's colour bar.</b> What the light runs today, from 0:00 to 24:00. The thin line is the current time.</div></li>
+        <li><span class="n">5</span><div><b>Maintenance light.</b> Full light for 60 minutes, for cleaning or planting. It ends on its own.</div></li>
+        <li><span class="n">6</span><div><b>Adjust.</b> Change colours now, edit the day program, or change the settings.</div></li>
+      </ul>
+      <table class="status-table">
+        <tbody>
+          <tr><td><span class="dot ok"></span>Bluetooth connected</td><td>The laptop is near. Changes go through right away.</td></tr>
+          <tr><td><span class="dot away"></span>Out of range · runs its own program</td><td>All good. The laptop is away; the light runs its program.</td></tr>
+          <tr><td><span class="dot warn"></span>Out of range · still in manual light</td><td>The manual light stays until the laptop is near this light again.</td></tr>
+          <tr><td><span class="tag warn">change waiting</span></td><td>A change is stored as soon as the laptop is near the light.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== EVERYDAY: NOW ============================== -->
+<section class="page">
+  <div class="eyebrow">Everyday use</div>
+  <h1>Changing the light right now</h1>
+  <div class="cols">
+    <div>
+      <p class="lead">Tap a light. The tab <span class="ui">Now</span> shows what the light is doing and lets you change it at once.</p>
+      <h3>Manual light</h3>
+      <p>Move a slider. The light changes immediately. Each slider is one colour: <b style="color:var(--w)">W</b> white, <b style="color:var(--r)">R</b> red, <b style="color:var(--g)">G</b> green, <b style="color:var(--b)">B</b> blue. 0 is off, 100 is full.</p>
+      <p>Below the sliders, choose how long: 30 minutes, 1 hour, 3 hours or 12 hours. After that, the light goes back to its day program on its own.</p>
+      <h3>Quick buttons</h3>
+      <table><tbody>
+        <tr><td>Maintenance light</td><td>All colours at full power for 60 minutes.</td></tr>
+        <tr><td>Lights off (1 h)</td><td>Dark for one hour, then back to the day program.</td></tr>
+        <tr><td>Back to day program</td><td>Ends manual or maintenance light at once.</td></tr>
+      </tbody></table>
+      <div class="box warn"><h3>Manual light needs the laptop nearby to end</h3>
+        <p class="small">The light can end its day program on its own, but not a manual light. Only the laptop can switch it back. If you take the laptop away before the time is up, the manual light stays on until the laptop is near the light again.</p>
+        <p class="small"><b>Before you leave:</b> tap <span class="ui">Back to day program</span>.</p></div>
+    </div>
+    <figure><div class="phone"><img src="img/phone-now.png" alt="Now tab"></div><figcaption>Tab “Now”</figcaption></figure>
+  </div>
+</section>
+
+<!-- ============================== DAY PROGRAM: CONCEPT ============================== -->
+<section class="page">
+  <div class="eyebrow">Day program</div>
+  <h1>How a day program works</h1>
+  <p class="lead">A day program is a list of <b>phases</b>. Each phase says: “at this time, the light should have reached these colours”. Between two phases, the light fades smoothly.</p>
+  <div class="diagram">
+    <svg viewBox="0 0 760 250" xmlns="http://www.w3.org/2000/svg" font-family="Inter, sans-serif">
+      <line x1="40" y1="200" x2="740" y2="200" stroke="#10171a" stroke-width="1.5"/>
+      <g font-size="11" fill="#56636b" text-anchor="middle">
+        <text x="40" y="218">0:00</text><text x="215" y="218">6:00</text><text x="390" y="218">12:00</text><text x="565" y="218">18:00</text><text x="740" y="218">24:00</text>
+      </g>
+      <polygon points="40,197 69,200 288,200 332,95 419,95 434,170 492,170 507,95 624,95 653,140 675,191 740,196 740,200 40,200" fill="#e3f3f2"/>
+      <polyline points="40,197 69,200 288,200 332,95 419,95 434,170 492,170 507,95 624,95 653,140 675,191 740,196" fill="none" stroke="#087f7a" stroke-width="3" stroke-linejoin="round"/>
+      <g fill="#fff" stroke="#087f7a" stroke-width="3">
+        <circle cx="40" cy="197" r="6"/><circle cx="69" cy="200" r="6"/><circle cx="288" cy="200" r="6"/><circle cx="332" cy="95" r="6"/>
+        <circle cx="419" cy="95" r="6"/><circle cx="434" cy="170" r="6"/><circle cx="492" cy="170" r="6"/><circle cx="507" cy="95" r="6"/>
+        <circle cx="624" cy="95" r="6"/><circle cx="653" cy="140" r="6"/><circle cx="675" cy="191" r="6"/>
+      </g>
+      <g font-size="12" fill="#10171a" font-weight="600">
+        <text x="40" y="180">Start 00:00</text>
+        <text x="322" y="84" text-anchor="end">Sunrise reached 10:00</text>
+        <text x="463" y="190" text-anchor="middle">Midday break</text>
+        <text x="632" y="84">Sunset begins 20:00</text>
+        <text x="652" y="236" font-weight="400" fill="#56636b">Moonlight</text>
+      </g>
+      <text x="300" y="232" font-size="11" fill="#56636b" text-anchor="middle">fade</text>
+      <path d="M296 196 L324 104" stroke="#56636b" stroke-width="1" stroke-dasharray="3 3"/>
+      <text x="40" y="24" font-size="12" fill="#56636b">brightness</text>
+      <text x="40" y="40" font-size="11" fill="#56636b">each dot = one phase</text>
+    </svg>
+  </div>
+  <div class="cols" style="grid-template-columns: 1fr 66mm">
+    <div>
+      <h3>The rules</h3>
+      <ul>
+        <li>The first phase is always at <b>00:00</b>, so the night is always defined.</li>
+        <li>To hold a level, give two phases the same colours (10:00 and 13:00 above).</li>
+        <li>Each light keeps <b>8 day programs</b>. You choose which runs on which weekday.</li>
+      </ul>
+      <h3>What the light stores: the simple version</h3>
+      <p class="small">The Chihiros can store a simple program by itself: <b>switch on, fade up, full light, fade down, off</b>, with one colour mix. Light Bridge makes this simple version from your day program and stores it in the light. Moonlight and a midday break are left out. The card “Stored in the light” shows exactly what the light runs.</p>
+      <p class="small">If the light can also store <b>full curves</b> with all phases, the light runs your whole program. A short test shows whether it can (page 11).</p>
+    </div>
+    <figure><div class="shot-card"><img src="img/card-stored.png" alt="Stored in the light"></div><figcaption>The card “Stored in the light”</figcaption></figure>
+  </div>
+</section>
+
+<!-- ============================== DAY PROGRAM: EDITING ============================== -->
+<section class="page">
+  <div class="eyebrow">Day program</div>
+  <h1>Changing the day program</h1>
+  <div class="cols three" style="margin-bottom:4mm">
+    <figure><div class="shot-card"><img src="img/card-chart.png" alt="Chart"></div><figcaption>Colour bar, chart and “Check a time of day”</figcaption></figure>
+    <figure><div class="shot-card"><img src="img/card-phases-top.png" alt="Phases"></div><figcaption>The phases, with “+ Add phase”</figcaption></figure>
+    <figure><div class="phone crop bottom"><img src="img/phone-phase-edit.png" alt="Edit a phase"></div><figcaption>Changing one phase</figcaption></figure>
+  </div>
+  <ol class="steps">
+    <li><b class="t">Open the day program</b>Tap the light → tab <span class="ui">Day program</span>. At the top, choose which of the 8 programs you want to change. “(runs today)” marks today's program.</li>
+    <li><b class="t">Change a phase</b>Tap a phase. Set the time and the colours. With <span class="ui">Show on the light while editing</span> on, the tank shows the colours right away. Tap <span class="ui">Done</span>.</li>
+    <li><b class="t">Add or remove phases</b><span class="ui">+ Add phase</span> between two phases adds one in the middle. <span class="ui">Delete</span> in a phase removes it.</li>
+    <li><b class="t">Check the whole day</b>Move the slider <span class="ui">Check a time of day</span>. Tick <span class="ui">Show it on the light</span> to see that moment in the tank.</li>
+    <li><b class="t">Save</b>Tap <span class="ui">Save to light</span> in the bar at the bottom. If the laptop is near the light, the program is stored after a few seconds. If not, it shows <span class="tag warn">change waiting</span> and is stored the next time the laptop is near.</li>
+  </ol>
+  <div class="cols half">
+    <div class="box"><h3>Templates and copying</h3><p class="small"><span class="ui">Start from a template</span> loads a ready-made day. <span class="ui">Copy to another light</span> puts the same day on the other Chihiros.</p></div>
+    <div class="box"><h3>Weekdays</h3><p class="small">Under “Used on”, tap the days this program should run, for example a later sunrise at the weekend. (With full curves, every day uses the same program.)</p></div>
+  </div>
+</section>
+
+<!-- ============================== CURVE TEST ============================== -->
+<section class="page">
+  <div class="eyebrow">Optional</div>
+  <h1>Full curves test</h1>
+  <p class="lead">Can your light store your whole day program, with every phase, the midday break and moonlight? Nobody has confirmed this for the Universal WRGB yet, so Light Bridge asks the light itself. It takes about 5 minutes.</p>
+  <div class="cols three" style="grid-template-columns: 1fr 1fr 1.15fr">
+    <figure><div class="phone crop bottom"><img src="img/phone-test-intro.png" alt="Test intro"></div><figcaption>Start</figcaption></figure>
+    <figure><div class="phone crop bottom"><img src="img/phone-test-watch.png" alt="Watch the light"></div><figcaption>Watch the light</figcaption></figure>
+    <ol class="steps small">
+      <li><b class="t">Stay near the light</b>Laptop and you next to the tank.</li>
+      <li><b class="t">Start the test</b>Day program → card “Stored in the light” → <span class="ui">Test full curves</span> → <span class="ui">Start test</span>.</li>
+      <li><b class="t">Watch</b>The light turns soft white. At the time shown it should turn <b>blue</b> for about two minutes, then white again.</li>
+      <li><b class="t">Answer</b>Did it turn blue? Tap <span class="ui">Yes</span>, <span class="ui">No</span> or <span class="ui">I missed it</span>.</li>
+    </ol>
+  </div>
+  <table>
+    <thead><tr><th>Your answer</th><th>What happens</th></tr></thead>
+    <tbody>
+      <tr><td>Yes, it turned blue</td><td>Full curves are switched on. The light runs today's program with all phases, <b>every day</b>.</td></tr>
+      <tr><td>No</td><td>Light Bridge tries a second way (another 5 minutes). If that does not work either, the light keeps the simple version. Nothing is lost.</td></tr>
+      <tr><td>I missed it</td><td>The test starts again.</td></tr>
+    </tbody>
+  </table>
+  <div class="box"><h3>Two identical lights</h3><p class="small">If both lights are the same model, you can tick <span class="ui">Also switch my other Chihiros to full curves</span>. Each light then runs its own program of today every day. If you are unsure, simply run the test on the second light too.</p></div>
+  <p class="small muted">Afterwards your own program is always stored in the light again, whatever the result.</p>
+</section>
+
+<!-- ============================== WHAT HAPPENS IF ============================== -->
+<section class="page">
+  <div class="eyebrow">Peace of mind</div>
+  <h1>What happens if …</h1>
+  <table>
+    <thead><tr><th>Situation</th><th>What happens</th></tr></thead>
+    <tbody>
+      <tr><td>… the laptop goes to work, sleeps or is switched off?</td><td>Both lights keep running their stored programs. When the laptop is back and Light Bridge runs, it connects again by itself.</td></tr>
+      <tr><td>… a manual light is on when the laptop leaves?</td><td>The manual light stays on until the laptop is near that light again; then the light goes back to its program. Light Bridge shows “still in manual light”. Tip: <span class="ui">Back to day program</span> before leaving.</td></tr>
+      <tr><td>… the laptop leaves while a change is being stored?</td><td>The app shows “program only partly stored”. As soon as the laptop is near again, the program is stored completely.</td></tr>
+      <tr><td>… I walk past a light with the laptop?</td><td>Light Bridge only starts to store a program when the connection has been steady for a few seconds. Walking past does no harm.</td></tr>
+      <tr><td>… there is a power cut?</td><td>When the power is back, the lights start with their stored program. Their clocks may be wrong until the laptop is near them; then the clock is set automatically. Tip: after a power cut, start Light Bridge at home and walk past both lights.</td></tr>
+      <tr><td>… the clocks change (summer / winter time)?</td><td>The lights' clocks are corrected the next time the laptop is near them.</td></tr>
+      <tr><td>… the Wi-Fi is down?</td><td>The lights keep running. Only the iPhone cannot reach Light Bridge. Use the laptop directly.</td></tr>
+      <tr><td>… someone opens the My Chihiros app?</td><td>It may take over the light's connection. Light Bridge shows “out of range”. Close the app; Light Bridge connects again by itself.</td></tr>
+      <tr><td>… a neighbour has a Chihiros too?</td><td>It shows up as “new light nearby”. Nothing is changed in it unless you tap “This is mine”. Tap “Not mine” to hide it.</td></tr>
+      <tr><td>… the laptop is in another network, e.g. at work?</td><td>Nobody there can use Light Bridge without the code from your laptop screen. The lights at home are not affected.</td></tr>
+    </tbody>
+  </table>
+  <div class="box tip"><h3>Keep a backup</h3><p class="small">Gear icon → <span class="ui">Download backup</span> saves names, rooms and all day programs in one file. <span class="ui">Restore from file</span> brings them back, for example on a new laptop.</p></div>
+</section>
+
+<!-- ============================== TROUBLESHOOTING ============================== -->
+<section class="page faq">
+  <div class="eyebrow">Help</div>
+  <h1>Troubleshooting</h1>
+  <h3>A light does not appear</h3>
+  <ul>
+    <li>Is the light switched on? Is the laptop within a few metres?</li>
+    <li>Is Bluetooth switched on in Windows (quick settings, bottom right)?</li>
+    <li>Is the My Chihiros app closed on all phones?</li>
+    <li>Gear icon → <span class="ui">Search now</span>. Did you tap “Not mine” by mistake? Then remove the light's line from the settings file, or ask whoever set up Light Bridge.</li>
+  </ul>
+  <h3>“Out of range” although the laptop is next to the light</h3>
+  <ul>
+    <li>Close the My Chihiros app on every phone.</li>
+    <li>Unplug the light for 10 seconds, then plug it in again.</li>
+  </ul>
+  <h3>A change shows “change waiting” for a long time</h3>
+  <p>The laptop has not been near the light since the change. Take it there for a minute. The tag disappears when the program is stored.</p>
+  <h3>The iPhone shows “Connect this device once”</h3>
+  <p>Scan the code on the laptop screen again (overview, at the bottom, or gear icon → “Use it on your iPhone”).</p>
+  <h3>The iPhone cannot open the page at all</h3>
+  <ul>
+    <li>Is the iPhone in the home Wi-Fi (not mobile data)? Is the laptop at home and Light Bridge running?</li>
+    <li>Windows firewall: <span class="ui">Windows Security → Firewall &amp; network protection → Allow an app through firewall</span>. Tick “Python” for <b>Private</b>.</li>
+  </ul>
+  <h3>The light does not switch on or off at the expected time</h3>
+  <p>Check the card “Stored in the light” (tab Day program): it shows the times the light really uses. The light's clock is set whenever the laptop is near; gear icon on the light → <span class="ui">Set the light's clock</span> does it at once.</p>
+  <h3>Light Bridge does not start</h3>
+  <ul>
+    <li>Was Python installed with “Add python.exe to PATH” ticked? If not, install it again with the tick.</li>
+    <li>“Light Bridge is already running”: it is already open; the browser shows it.</li>
+  </ul>
+</section>
+
+<!-- ============================== FIELD TEST ============================== -->
+<section class="page">
+  <div class="eyebrow">For whoever sets it up</div>
+  <h1>First test with your lights</h1>
+  <p class="lead">Light Bridge has so far only been tested with simulated lights. Please go through this list once with the real lights and note what you see. It takes about an hour.</p>
+  <table class="check">
+    <thead><tr><th>#</th><th>Do this</th><th>Expected</th><th>OK?</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td>Start the demo (<span class="mono">Start-Demo</span>) and click through.</td><td>Everything works with simulated lights.</td><td></td></tr>
+      <tr><td>2</td><td>Start Light Bridge next to light 1. Tap <span class="ui">Flash</span>.</td><td>Light 1 blinks blue three times.</td><td></td></tr>
+      <tr><td>3</td><td><span class="ui">This is mine</span>, name and room.</td><td>“Bluetooth connected”, no “storing…” after about 15 s.</td><td></td></tr>
+      <tr><td>4</td><td>Compare the tank with the card “Stored in the light”.</td><td>Brightness fits the current time.</td><td></td></tr>
+      <tr><td>5</td><td>Maintenance light, then <span class="ui">Back to day program</span>.</td><td>Full light, then back to the program.</td><td></td></tr>
+      <tr><td>6</td><td>Walk away with the laptop (or switch Bluetooth off).</td><td>The light keeps its program; app: “runs its own program”.</td><td></td></tr>
+      <tr><td>7</td><td>Manual light 1 h, then walk away; come back after 5 min.</td><td>Away: manual light stays, app says so. Back: program again within a minute.</td><td></td></tr>
+      <tr><td>8</td><td>Manual light, then close the laptop lid.</td><td>Ideally the light goes back to its program at once (sleep hook). Note what happens.</td><td></td></tr>
+      <tr><td>9</td><td>Set a phase a few minutes ahead, save, watch.</td><td>The light switches/fades at the times on the card. Note whether the fade ends or starts at that time.</td><td></td></tr>
+      <tr><td>10</td><td>Full curves test (page 11).</td><td>Note: blue yes/no, first or second way.</td><td></td></tr>
+      <tr><td>11</td><td>Add light 2 in the other room; repeat 4–7.</td><td>Both lights work independently.</td><td></td></tr>
+      <tr><td>12</td><td>iPhone: scan the code, add to Home Screen, open from the icon.</td><td>Works in the home Wi-Fi.</td><td></td></tr>
+      <tr><td>13</td><td>Next morning: is each light on its program, with the right time?</td><td>Yes, without the laptop.</td><td></td></tr>
+    </tbody>
+  </table>
+  <p class="small muted">Please send the results (and the file <span class="mono">light-bridge.log</span> from the settings folder, shown under gear icon → About) to whoever set up Light Bridge.</p>
+</section>
+
+<!-- ============================== REVIEW + DISCLAIMER ============================== -->
+<section class="page">
+  <div class="eyebrow">Behind the scenes</div>
+  <h1>Review notes and disclaimer</h1>
+  <p class="lead">Before this version was handed over, the program was checked against one question: does each light keep working in its intended mode, whatever the laptop does?</p>
+  <h2>What was checked and improved</h2>
+  <div class="cols half">
+    <ul class="small tight">
+      <li><b>Laptop leaves at any moment:</b> tested by cutting the connection after every single command while a program is stored. The light either keeps a complete program, or the app knows and repairs it on the next visit.</li>
+      <li><b>Walking past / closing the lid:</b> a program is only stored on a steady connection; before sleep only the short “run your program” command is sent.</li>
+      <li><b>Honest status:</b> the app shows when a light was left in manual light or with an unfinished program.</li>
+      <li><b>Simple version:</b> moonlight no longer counts as daylight, and a light time over midnight cannot make the light shine all night.</li>
+    </ul>
+    <ul class="small tight">
+      <li><b>Neighbour safety:</b> lights found nearby are only changed after “This is mine”.</li>
+      <li><b>Two lights:</b> each has its own connection and state; one unplugged light does not hold up the other.</li>
+      <li><b>Network safety:</b> other devices need the code from the laptop screen; no automatic network searches.</li>
+      <li><b>Robustness:</b> one Light Bridge per PC; settings saved safely; damaged files kept and reported; unsaved changes are not lost by accident.</li>
+    </ul>
+  </div>
+  <h2>Known limits</h2>
+  <ol class="small tight">
+    <li>Tested with simulated lights only. The commands come from other aquarium owners' documentation.</li>
+    <li>Full curves are not confirmed for this light (hence the test). Without them: one colour mix per day.</li>
+    <li>A manual light needs the laptop nearby to end.</li>
+    <li>After a power cut while the laptop is away, a light's clock may be wrong until the laptop is near.</li>
+    <li>Windows parts (start files, sleep and close handling) are not yet tested on a real Windows laptop.</li>
+    <li>Bluetooth reaches a few metres; the laptop must come near each light now and then.</li>
+  </ol>
+  <div class="box warn"><h3>Disclaimer</h3>
+    <p class="small">Light Bridge is a private hobby project and comes <b>without any warranty</b> (MIT licence). It uses unofficial interfaces of Chihiros (and optionally Juwel) products that are not published by the manufacturers; a firmware update may change them. Using it changes the light program of your aquarium: please watch the tank after changes, check on your animals and plants, and keep a backup. You use it at your own risk.</p>
+    <p class="small">Not affiliated with, endorsed or supported by Chihiros or Juwel. Product names belong to their owners.</p></div>
+</section>
+
+<!-- ============================== GLOSSARY + HELIALUX ============================== -->
+<section class="page">
+  <div class="eyebrow">Reference</div>
+  <h1>Words used in this guide</h1>
+  <dl class="gloss">
+    <dt>Light Bridge</dt><dd>The program on your laptop that stores day programs in your lights and shows one page for all of them.</dd>
+    <dt>Bluetooth</dt><dd>Short-range radio between the laptop and a Chihiros. It reaches a few metres.</dd>
+    <dt>Home Wi-Fi</dt><dd>Your wireless network at home. The laptop and the iPhone use it to talk to each other.</dd>
+    <dt>Day program</dt><dd>The light plan for one day. Each light keeps 8.</dd>
+    <dt>Phase</dt><dd>One row in a day program: a time and the colours reached at that time.</dd>
+    <dt>Stored in the light</dt><dd>What the light runs on its own: the simple version or the full curve.</dd>
+    <dt>Full curves</dt><dd>The whole day program with all phases, stored in the light (after a successful test).</dd>
+    <dt>Manual light</dt><dd>Colours set by hand. They end after the chosen time, when the laptop is near.</dd>
+    <dt>Maintenance light</dt><dd>Full light for 60 minutes, for work at the tank.</dd>
+    <dt>Flash</dt><dd>Lets a light blink blue three times, so you see which one it is.</dd>
+    <dt>Code (QR code)</dt><dd>The square pattern on the laptop screen. It connects your iPhone and contains a secret key.</dd>
+    <dt>Demo mode</dt><dd>Light Bridge with simulated lights, for trying things out.</dd>
+  </dl>
+  <h2>Appendix: Juwel HeliaLux (beta)</h2>
+  <div class="box"><p class="small">Light Bridge can also show a Juwel HeliaLux SmartControl (Spectrum with 4 colours, LED with 2) on the same page. This part is a beta and was not the focus of this version.</p>
+  <ol class="small tight"><li>Bring the SmartControl into your home Wi-Fi once: connect to its own Wi-Fi <span class="mono">HLSmartControl</span>, open <span class="mono">192.168.4.1</span>, Settings → Home network.</li>
+  <li>In Light Bridge: gear icon → <span class="ui">Optional: Juwel HeliaLux (beta)</span> → <span class="ui">Search this home network</span>, or enter its address.</li></ol>
+  <p class="small muted" style="margin-bottom:0">The HeliaLux stores its program itself; Light Bridge reads every change back to check it. Juwel does not publish this interface, so an update could change it. There is no automatic network search, so search again at home if its address changes.</p></div>
+</section>
+
+</body>
+</html>
