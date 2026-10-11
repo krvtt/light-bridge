@@ -786,11 +786,13 @@ class ServerSecurityTests(unittest.TestCase):
                     return r.status
             except urllib.error.HTTPError as e:
                 return e.code
+            except (urllib.error.URLError, ConnectionError):
+                return "closed"      # the server refused before the client had sent everything
         self.assertEqual(post("/api/scan", headers={"Content-Type": "text/plain"}), 415)       # plain form post
         self.assertEqual(post("/api/scan", headers={"Content-Type": "application/json",
                                                      "Origin": "http://evil.example.com"}), 403)
         self.assertEqual(post("/api/scan", headers={"Content-Type": "application/json", "Host": "evil.example.com"}), 403)
-        self.assertEqual(post("/api/lights/x/manual", b"x" * (600 * 1024), {"Content-Type": "application/json"}), 400)
+        self.assertIn(post("/api/lights/x/manual", b"x" * (600 * 1024), {"Content-Type": "application/json"}), (400, "closed"))
         with urllib.request.urlopen(base + "/api/state", timeout=5) as r:
             self.assertEqual(r.status, 200)
             self.assertEqual(r.headers["X-Frame-Options"], "DENY")
